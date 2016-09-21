@@ -3,6 +3,7 @@ getwd()
 # TRY 2.0
 load("data/TRY.all.mean.sd.2.Rdata")
 str(TRY.all.mean.sd.2)
+dim(TRY.all.mean.sd.2)
 # 40791 obs. of  38 variables
 # tests
 any(is.na(TRY.all.mean.sd.2$SLA.sd)) #T
