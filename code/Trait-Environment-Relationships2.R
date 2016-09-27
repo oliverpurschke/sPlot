@@ -51,11 +51,53 @@ names(TRY.all.sd.3) <- c("StandSpeciesName","LeafArea.sd", "StemDens.sd", "SLA.s
 any(is.na(TRY.all.sd.3$SLA.sd)) #T
 TRY.all.mean.sd.3 <- data.frame(TRY.all.n.3,TRY.all.mean.3[,c(2:19)],TRY.all.sd.3[,c(2:19)])
 str(TRY.all.mean.sd.3) #59319 obs. of  38 variables
+'data.frame:	59319 obs. of  38 variables:
+$ StandSpeciesName       : Factor w/ 59319 levels "Aa sp","Abarema adenophora",..: 1 2 3 4 5 6 7 8 9 10 ...
+$ n                      : int  1 4 1 1 38 4 86 7 5 95 ...
+$ LeafArea.mean          : num  6.61 6.96 7.04 7.11 6.75 ...
+$ StemDens.mean          : num  -0.822 -0.427 -0.57 -0.619 -0.543 ...
+$ SLA.mean               : num  2.24 2.38 2.41 2.56 2.65 ...
+$ LeafC.perdrymass.mean  : num  6.17 6.26 6.19 6.17 6.18 ...
+$ LeafN.mean             : num  2.92 3.19 3.25 3.41 3.23 ...
+$ LeafP.mean             : num  -0.0143 0.3403 -0.1557 -0.0999 -0.217 ...
+$ PlantHeight.mean       : num  -0.498 2.874 2.544 2.293 2.394 ...
+$ SeedMass.mean          : num  -4.08 4.49 4.27 4.23 4.13 ...
+$ Seed.length.mean       : num  -0.317 2.021 1.88 1.92 1.912 ...
+$ LDMC.mean              : num  -1.471 -0.798 -0.938 -1.087 -1.111 ...
+$ LeafNperArea.mean      : num  0.896 0.834 0.838 0.804 0.617 ...
+$ LeafNPratio.mean       : num  2.54 3.26 3.49 3.55 3.57 ...
+$ Leaf.delta.15N.mean    : num  0.38 1.258 0.925 -0.169 0.719 ...
+$ Seed.num.rep.unit.mean : num  9.56 1.64 1.39 1.18 1.32 ...
+$ Leaffreshmass.mean     : num  -1.3303 -0.2516 -0.0799 -0.0889 -0.4985 ...
+$ Stem.cond.dens.mean    : num  3.67 2.14 1.94 2.08 2.06 ...
+$ Disp.unit.leng.mean    : num  -0.555 2.916 2.676 2.689 2.842 ...
+$ Wood.vessel.length.mean: num  6.13 5.73 6 6.06 6.21 ...
+$ LeafArea.sd            : num  NA 0.0303 NA NA 0.0556 ...
+$ StemDens.sd            : num  NA 0.1101 NA NA 0.0123 ...
+$ SLA.sd                 : num  NA 0.1063 NA NA 0.0695 ...
+$ LeafC.perdrymass.sd    : num  NA 0.0086 NA NA 0.00511 ...
+$ LeafN.sd               : num  NA 0.0638 NA NA 0.0113 ...
+$ LeafP.sd               : num  NA 0.3936 NA NA 0.0232 ...
+$ PlantHeight.sd         : num  NA 0.0626 NA NA 0.1806 ...
+$ SeedMass.sd            : num  NA 0.0315 NA NA 0.0787 ...
+$ Seed.length.sd         : num  NA 0.0457 NA NA 0.0193 ...
+$ LDMC.sd                : num  NA 0.0553 NA NA 0.0573 ...
+$ LeafNperArea.sd        : num  NA 0.098 NA NA 0.068 ...
+$ LeafNPratio.sd         : num  NA 0.291 NA NA 0.0304 ...
+$ Leaf.delta.15N.sd      : num  NA 0.1651 NA NA 0.0398 ...
+$ Seed.num.rep.unit.sd   : num  NA 0.211 NA NA 0.259 ...
+$ Leaffreshmass.sd       : num  NA 0.0748 NA NA 0.0571 ...
+$ Stem.cond.dens.sd      : num  NA 0.1389 NA NA 0.0349 ...
+$ Disp.unit.leng.sd      : num  NA 0.0927 NA NA 0.0293 ...
+$ Wood.vessel.length.sd  : num  NA 0.1466 NA NA 0.0271 ...'
 
 plot(SLA.mean~LDMC.mean, data=TRY.all.mean.sd.3)
 #summary(lm(SLA.mean~LDMC.mean, data=TRY.all.mean.sd.2))
 #abline(lm(SLA.mean~LDMC.mean, data=TRY.all.mean.sd.2),col="blue", lwd=2)
 #sqrt(0.3415)
+
+#TRY.all.mean.sd.3 <- TRY.all.mean.sd.3[,-39]
+save(TRY.all.mean.sd.3, file="TRY.all.mean.sd.3.Rdata")
 
 ###### Backbone #####
 load("data/backbone.v.2.splot.try3.Rdata")
@@ -149,62 +191,17 @@ backbone.splot.try3$names.sPlot.TRY[backbone.splot.try3$names.sPlot.TRY=="Shorea
 backbone.splot.try3$names.sPlot.TRY[backbone.splot.try3$names.sPlot.TRY=="ShoreaÊsp"] #0
 backbone.splot.try3$names.sPlot.TRY[backbone.splot.try3$names.sPlot.TRY=="Shorea sp"] #1
 DT$species[DT$species=="Shorea sp" & !is.na(DT$species)] #0
+# none of the species is in sPlot, thus we can take them out
 
 ### data cleaning ###
-length(TRY.all.mean.sd.2$StandSpeciesName[is.na(TRY.all.mean.sd.2$StandSpeciesName)])
-# 1 record is NA
-TRY.all.mean.sd.2[which(is.na(TRY.all.mean.sd.2$StandSpeciesName)),]
+length(TRY.all.mean.sd.3$StandSpeciesName[is.na(TRY.all.mean.sd.3$StandSpeciesName)])
+# No record is NA!
+#TRY.all.mean.sd.2[which(is.na(TRY.all.mean.sd.2$StandSpeciesName)),]
 # record no. 7947 has StandSpeciesName = NA
-TRY.all.mean.sd.2 <- TRY.all.mean.sd.2[-which(is.na(TRY.all.mean.sd.2$StandSpeciesName)),]
-str(TRY.all.mean.sd.2) #40790 obs. of  38 variables
-# 1 record less
-'data.frame:	40790 obs. of  38 variables:
-$ StandSpeciesName       : Factor w/ 40790 levels "Abarema adenophora",..: 965 3066 3128 3445 4239 7449 7467 7829 8665 12419 ...
-$ n                      : int  23 32 15 8 21 32 20 31 7 8 ...
-$ SLA.mean               : num  1.42 1.83 1.92 2.7 2.31 ...
-$ PlantHeight.mean       : num  1.282 2.92 0.585 0.488 1.1 ...
-$ SeedMass.mean          : num  0.0656 2.7757 2.6427 -2.6794 -2.4111 ...
-$ LDMC.mean              : num  -0.765 -1.367 -1.009 -1.228 -0.963 ...
-$ StemDens.mean          : num  -0.298 -0.524 -0.322 -0.69 -0.592 ...
-$ LeafArea.mean          : num  3.39 8.36 5.26 3.28 5.16 ...
-$ LeafN.mean             : num  2.33 2.5 2.21 2.95 3.17 ...
-$ LeafP.mean             : num  0.118 0.074 -0.127 0.792 0.421 ...
-$ LeafNperArea.mean      : num  0.692 0.485 0.381 0.452 0.709 ...
-$ Leaffreshmass.mean     : num  -2.325 0.112 -1.916 -3.777 -2.714 ...
-$ LeafNPratio.mean       : num  2.23 2.32 2.24 2.14 2.81 ...
-$ LeafC.perdrymass.mean  : num  6.14 6.25 6.31 6.1 6.12 ...
-$ Leaf.delta.15N.mean    : num  2.68 2.44 2.32 2.78 2.72 ...
-$ Stem.cond.dens.mean    : num  5.44 4.82 5.44 6.41 6.69 ...
-$ Seed.num.rep.unit.mean : num  4.57 4.34 1.48 9.87 8.48 ...
-$ Wood.vessel.length.mean: num  6.32 6.17 6.18 6.13 6.16 ...
-$ Seed.length.mean       : num  1.18 1.45 1.78 0.16 1.21 ...
-$ Disp.unit.leng.mean    : num  1.173 2.119 2.064 0.039 1.287 ...
-$ SLA.sd                 : num  0.1105 0.1754 0.3161 0.0694 0.0596 ...
-$ PlantHeight.sd         : num  0.185 0.347 1.296 0.274 0.137 ...
-$ SeedMass.sd            : num  0.288 1.016 0.234 0.201 0.317 ...
-$ LDMC.sd                : num  0.038 0.0469 0.0449 0.0433 0.0321 ...
-$ StemDens.sd            : num  0.0629 0.0582 0.0511 0.0787 0.0635 ...
-$ LeafArea.sd            : num  0.876 0.235 1.89 0.135 0.196 ...
-$ LeafN.sd               : num  0.0857 0.0902 0.1229 0.0493 0.0443 ...
-$ LeafP.sd               : num  0.2173 0.0974 0.142 0.0356 0.0611 ...
-$ LeafNperArea.sd        : num  0.0983 0.0916 0.065 0.0425 0.053 ...
-$ Leaffreshmass.sd       : num  0.454 0.189 0.776 0.116 0.144 ...
-$ LeafNPratio.sd         : num  0.1921 0.0522 0.1184 0.032 0.0477 ...
-$ LeafC.perdrymass.sd    : num  0.00741 0.00767 0.00706 0.00634 0.00469 ...
-$ Leaf.delta.15N.sd      : num  0.0363 0.0376 0.0382 0.0296 0.0198 ...
-$ Stem.cond.dens.sd      : num  0.0996 0.3641 0.2232 0.1064 0.1064 ...
-$ Seed.num.rep.unit.sd   : num  0.319 0.51 0.684 0.295 0.408 ...
-$ Wood.vessel.length.sd  : num  0.0435 0.0518 0.0673 0.0392 0.0291 ...
-$ Seed.length.sd         : num  0.0508 0.0744 0.0992 0.0817 0.0651 ...
-$ Disp.unit.leng.sd      : num  0.0721 0.1367 0.1409 0.0423 0.0754 ...
-'
+#TRY.all.mean.sd.2 <- TRY.all.mean.sd.2[-which(is.na(TRY.all.mean.sd.2$StandSpeciesName)),]
 
-index6 <- match(TRY.all.mean.sd.2$StandSpeciesName,backbone.splot.try3$names.sPlot.TRY)
-any(is.na(index6)) #T
-TRY.all.mean.sd.2$StandSpeciesName[is.na(index6)]
-# 3958 species
-TRY.all.mean.sd.2$species <- backbone.splot.try3$name.short.correct[index6]
-dim(TRY.all.mean.sd.2) # 40790    39
+TRY.all.mean.sd.3$species <- backbone.splot.try3$name.short.correct[index6]
+dim(TRY.all.mean.sd.3) # 59319    39
 
 
 index1 <- match(DT$PlotObservationID, splot.header$PlotObservationID)
@@ -227,56 +224,60 @@ length(DT$species[!is.na(DT$species)]) #24221565
 length(DT$species) #24241941
 24241941-24221565 # 20376 NA names!!!
 # it gives nonsense to match them with traits
-index7 <- match(DT$species,TRY.all.mean.sd.2$species)
+index7 <- match(DT$species,TRY.all.mean.sd.3$species)
 length(index7) #24241941
-length(index7[!is.na(index7)]) #21040927, with previous TRY version that was: 19841429
-24241941 - 21040927 # 3201014 entries have no traits
-(24241941 - 3201014)/24241941*100 
-# which are   86.79555% of plots that have traits,
-# previously: 18.15247 %
+length(index7[!is.na(index7)]) 
+# 21839463, with TRY3.0
+# 21040927, with TRY2.0
+# 19841429, with first TRY version
+24241941 - 21839463 # 2402478 entries have no traits
+(24241941 - 2402478)/24241941*100 
+# which are 90.08958% of all entries
+# previously: 86.79555% with TRY2.0
+# previously: 18.15247 % and with first TRY version
 
 # reduce DT, and splot.header
 #splot.header <- splot.header[!is.na(DT$species[index2]),]
 #dim(splot.header) #1117476       3
 DT <- DT[!is.na(DT$species),]
-index7 <- match(DT$species,TRY.all.mean.sd.2$species)
+index7 <- match(DT$species,TRY.all.mean.sd.3$species)
 length(index7) #24221565
 
 
 ### CWM ###
-mean(TRY.all.mean.sd.2$SLA.mean) # 2.611657
-min(TRY.all.mean.sd.2$SLA.mean) # -1.297031
-max(TRY.all.mean.sd.2$SLA.mean) # 5.893029
+mean(TRY.all.mean.sd.3$SLA.mean) # 2.634988
+min(TRY.all.mean.sd.3$SLA.mean) # 0.03072317
+max(TRY.all.mean.sd.3$SLA.mean) # 5.182365
 # example
 DT$trait <- NA
-DT$trait <- TRY.all.mean.sd.2$SLA.mean[index7]
-length(DT$trait[!is.na(DT$trait)]) # 21020551
-length(DT$trait[is.na(DT$trait)]) #   3201014
+DT$trait <- TRY.all.mean.sd.3$SLA.mean[index7]
+length(DT$trait[!is.na(DT$trait)]) # 21819087
+length(DT$trait[is.na(DT$trait)]) #   2402478
 str(DT)
 
-colnames(TRY.all.mean.sd.2)
+colnames(TRY.all.mean.sd.3)
 CWM2 <-  DT[,list(CWM.SLA = weighted.mean(trait,Cover,na.rm = T)),by=PlotObservationID]
 # I have checked that we do not need to prefilter only those entries that have a trait value
 # this works fine
 str(CWM2)
 dim(CWM2) #1117898
-which(colnames(TRY.all.mean.sd.2)=="SLA.mean") # 3
-which(colnames(TRY.all.mean.sd.2)=="Disp.unit.leng.mean") # 20
+which(colnames(TRY.all.mean.sd.3)=="LeafArea.mean") # 3
+which(colnames(TRY.all.mean.sd.3)=="Wood.vessel.length.mean") # 20
 CWM <- array(NA,c(dim(CWM2)[1],18),dimnames=list(CWM2$PlotObservationID,
-                                              colnames(TRY.all.mean.sd.2)[3:20]))
+                                              colnames(TRY.all.mean.sd.3)[3:20]))
 rm(CWM2)
 for (i in 1:18){
   DT$trait <- NA
-  DT$trait <- TRY.all.mean.sd.2[index7,i+2]
+  DT$trait <- TRY.all.mean.sd.3[index7,i+2]
   CWM[,i] <-  DT[,list(CWM.trait= weighted.mean(trait,Relative.cover,na.rm = T)),by=PlotObservationID]$CWM.trait
   
 }
 str(CWM) #num [1:1117898, 1:18]
 CWM[1:20,]
 tail(CWM)
-write.csv(CWM,file = "CWM.csv", row.names = T)
+write.csv(CWM,file = "CWM_TRY3.csv", row.names = T)
 
-CWM <- read.csv("C://Daten//iDiv2//splot2//CWM.csv")
+CWM <- read.csv("C://Daten//iDiv2//splot2//CWM_TRY3.csv")
 str(CWM) #1117898 obs. of  19 variables
 dimnames(CWM)[[1]] <- CWM$X
 CWM <- CWM[,-1]
@@ -293,12 +294,12 @@ CWM1$Latitude <- splot.header$Latitude[index10]
 '
 str(CWM) # num [1:1117898, 1:18]
 CWM <- CWM[!(is.na(splot.header2$Longitude)|is.na(splot.header2$Latitude)|is.na(CWM[,"SLA.mean"])),]
-str(CWM) # num [1:1111307, 1:18]
-1111307/1117898*100 # 99.41041% of plots have traits, Long and Lat
+str(CWM) # num [1:1112287, 1:18]
+1112287/1117898*100 # 99.49808% of plots have traits, Long and Lat
 any(is.na(CWM)) #F
 # match header again
 index4 <- match(dimnames(CWM)[[1]],splot.header$PlotObservationID)
-length(index4) #1111307
+length(index4) #1112287
 any(is.na(index4)) # F
 splot.header2 <- splot.header[index4,]
 # now in the same sequence as CWM
@@ -334,6 +335,7 @@ raster.map.SLA.grid <- as(raster.map.SLA, 'SpatialGridDataFrame')
 library(RColorBrewer)
 # Set a color ramp
 rf <- brewer.pal(8, 'Spectral')
+par(mar=c(0, 0, 0, 8) + 0.1)
 mapParams <- mapGriddedData(raster.map.SLA.grid,addLegend=F, 
                             numCats = 8, colourPalette=rf)
 str(mapParams)
@@ -341,14 +343,18 @@ mapParams$cutVector
 # addMapLegend(plottedData=raster.map.SLA.grid,legendShrink=0.5)
 #do.call(addMapLegend, c( mapParams, legendLabels="all", legendWidth=0.5,
 #                legendIntervals="data", legendMar = 2 ) )
+#do.call(addMapLegend, c( mapParams, legendLabels="all", legendWidth=0.3,
+#                         legendIntervals="page", legendMar = 4, legendShrink=1.7,horizontal=F))
 do.call(addMapLegend, c( mapParams, legendLabels="all", legendWidth=0.3,
-                         legendIntervals="page", legendMar = 4, legendShrink=1.7,horizontal=F))
+                         legendIntervals="page", legendMar =2, horizontal=F))
+
 #round(as.numeric(exp(mapParams$cutVector)),1)
-mtext(round(as.numeric(exp(mapParams$cutVector)),1),side=4,line=-2, 
-      at=seq(-150,170, by=39), las=2)
+mtext(round(as.numeric(exp(mapParams$cutVector)),1),side=4,line=-1.5, 
+      at=seq(-200,230, by=51.3), las=2)
 #mtext("ln(SLA)",side=1,line=0, at=230, las=1)
 #mtext("ln(SLA)",side=4,line=-2,at=-170, las=2)
 # SLAgridded2.png
+par(mar=c(5, 4, 4, 2) + 0.1)
 
 ############################################################
 # Regression with Bioclim
@@ -374,8 +380,8 @@ BIO18 = Precipitation of Warmest Quarter
 BIO19 = Precipitation of Coldest Quarter'
 
 index11 <- match(splot.header2$PlotObservationID,splot.bioclim$PLOT_ID)
-length(index11) # 1111307
-length(index11[!is.na(index11)]) # 1111307
+length(index11) # 1112287
+length(index11[!is.na(index11)]) # 1112287
 
 #index12 <- match(CWM2$PlotObservationID, splot.header$PlotObservationID)
 #any(is.na(index12)) #F
@@ -387,17 +393,18 @@ model2 <- lm(CWM[,"SLA.mean"]~splot.bioclim$BIO_01[index11]+I(splot.bioclim$BIO_
 summary(model1)
 'Coefficients:
                                 Estimate Std. Error t value Pr(>|t|)    
-(Intercept)                    2.945e+00  9.167e-04  3212.9   <2e-16 ***
-splot.bioclim$BIO_01[index11] -1.204e-03  9.067e-06  -132.8   <2e-16 ***
-Multiple R-squared:  0.01562,	Adjusted R-squared:  0.01562 
-F-statistic: 1.764e+04 on 1 and 1111305 DF,  p-value: < 2.2e-16
+(Intercept)                    2.929e+00  8.700e-04    3367   <2e-16 ***
+splot.bioclim$BIO_01[index11] -9.720e-04  8.603e-06    -113   <2e-16 ***
+Multiple R-squared:  0.01135,	Adjusted R-squared:  0.01135 
+F-statistic: 1.277e+04 on 1 and 1112285 DF,  p-value: < 2.2e-16
 '
 summary(model2)
-'                                     Estimate Std. Error t value Pr(>|t|)    
-(Intercept)                         2.806e+00  1.113e-03  2520.3   <2e-16 ***
-splot.bioclim$BIO_01[index11]       2.188e-03  1.857e-05   117.8   <2e-16 ***
-I(splot.bioclim$BIO_01[index11]^2) -1.657e-05  7.985e-08  -207.6   <2e-16 ***
-Multiple R-squared:  0.05241
+'Coefficients:
+                                     Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                         2.791e+00  1.059e-03  2635.2   <2e-16 ***
+splot.bioclim$BIO_01[index11]       2.446e-03  1.765e-05   138.6   <2e-16 ***
+I(splot.bioclim$BIO_01[index11]^2) -1.673e-05  7.593e-08  -220.3   <2e-16 ***
+Multiple R-squared:  0.05269
 '
 abline(model1, lwd=3, col="blue")
 model2$coefficients
@@ -416,37 +423,38 @@ model1a <- lm(CWM[,"SLA.mean"][splot.bioclim$BIO_01[index11]<=79]~splot.bioclim$
 summary(model1a)
 'Coefficients:
                                                                     Estimate Std. Error t value Pr(>|t|)    
-(Intercept)                                                        2.697e+00  1.244e-03  2167.2   <2e-16 ***
-splot.bioclim$BIO_01[index11][splot.bioclim$BIO_01[index11] <= 79] 2.466e-03  2.117e-05   116.5   <2e-16 ***
+(Intercept)                                                        2.688e+00  1.178e-03    2282   <2e-16 ***
+splot.bioclim$BIO_01[index11][splot.bioclim$BIO_01[index11] <= 79] 2.826e-03  2.004e-05     141   <2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 0.4027 on 371873 degrees of freedom
-Multiple R-squared:  0.03519,	Adjusted R-squared:  0.03519 
-F-statistic: 1.356e+04 on 1 and 371873 DF,  p-value: < 2.2e-16'
+Residual standard error: 0.382 on 372215 degrees of freedom
+Multiple R-squared:  0.05069,	Adjusted R-squared:  0.05068 
+F-statistic: 1.987e+04 on 1 and 372215 DF,  p-value: < 2.2e-16'
 model1b <- lm(CWM[,"SLA.mean"][splot.bioclim$BIO_01[index11]<=99]~splot.bioclim$BIO_01[index11][splot.bioclim$BIO_01[index11]<=99])
 summary(model1b)
-'                                                                    Estimate Std. Error t value Pr(>|t|)    
-(Intercept)                                                        2.692e+00  1.161e-03  2319.8   <2e-16 ***
-splot.bioclim$BIO_01[index11][splot.bioclim$BIO_01[index11] <= 99] 2.777e-03  1.527e-05   181.9   <2e-16 ***
+'Coefficients:
+                                                                    Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                                                        2.695e+00  1.112e-03  2422.8   <2e-16 ***
+splot.bioclim$BIO_01[index11][splot.bioclim$BIO_01[index11] <= 99] 2.709e-03  1.463e-05   185.1   <2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 0.3954 on 750010 degrees of freedom
-Multiple R-squared:  0.04224,	Adjusted R-squared:  0.04224 
-F-statistic: 3.308e+04 on 1 and 750010 DF,  p-value: < 2.2e-16'
+Residual standard error: 0.3796 on 750485 degrees of freedom
+Multiple R-squared:  0.04367,	Adjusted R-squared:  0.04367 
+F-statistic: 3.427e+04 on 1 and 750485 DF,  p-value: < 2.2e-16'
 model1c <- lm(CWM[,"SLA.mean"][splot.bioclim$BIO_01[index11]>99]~splot.bioclim$BIO_01[index11][splot.bioclim$BIO_01[index11]>99])
 summary(model1c)
-'                                                                    Estimate Std. Error t value Pr(>|t|)    
-(Intercept)                                                        3.236e+00  2.587e-03  1251.1   <2e-16 ***
-splot.bioclim$BIO_01[index11][splot.bioclim$BIO_01[index11] > 99] -3.774e-03  1.855e-05  -203.4   <2e-16 ***
+'Coefficients:
+                                                                    Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                                                        3.210e+00  2.425e-03  1323.3   <2e-16 ***
+splot.bioclim$BIO_01[index11][splot.bioclim$BIO_01[index11] > 99] -3.417e-03  1.739e-05  -196.5   <2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 0.443 on 361293 degrees of freedom
-Multiple R-squared:  0.1028,	Adjusted R-squared:  0.1028 
-F-statistic: 4.138e+04 on 1 and 361293 DF,  p-value: < 2.2e-16
-'
+Residual standard error: 0.4157 on 361798 degrees of freedom
+Multiple R-squared:  0.09646,	Adjusted R-squared:  0.09646 
+F-statistic: 3.862e+04 on 1 and 361798 DF,  p-value: < 2.2e-16'
 
 plot(CWM[,"SLA.mean"]~splot.bioclim$BIO_01[index11],
      cex=0.05, xlab="BIO_1", ylab="CWM ln(SLA)",cex.lab=1.5, cex.axis=1.5)
@@ -488,14 +496,16 @@ lines(x.new,y.new, lwd=3, col="blue")
 ### N to P ratio
 model4 <- lm(CWM[,"LeafNPratio.mean"]~splot.bioclim$BIO_01[index11])
 summary(model4)
-'                               Estimate Std. Error t value Pr(>|t|)    
-(Intercept)                   2.290e+00  4.334e-04  5284.0   <2e-16 ***
-splot.bioclim$BIO_01[index11] 1.531e-03  4.287e-06   357.2   <2e-16 ***
+'Coefficients:
+                               Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                   2.334e+00  4.243e-04    5501   <2e-16 ***
+splot.bioclim$BIO_01[index11] 1.313e-03  4.196e-06     313   <2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 0.2026 on 1111305 degrees of freedom
-Multiple R-squared:  0.103,	Adjusted R-squared:  0.103  
+Residual standard error: 0.1986 on 1112285 degrees of freedom
+Multiple R-squared:  0.08096,	Adjusted R-squared:  0.08096 
+F-statistic: 9.799e+04 on 1 and 1112285 DF,  p-value: < 2.2e-16
 '
 plot(CWM[,"LeafNPratio.mean"]~splot.bioclim$BIO_01[index11],
      cex=0.05, xlab="BIO_01", ylab="CWM ln(Leaf N to P ratio)",cex.lab=1.5, cex.axis=1.5)
@@ -640,7 +650,7 @@ s3d1$points3d(x2[values.present],y2[values.present],z2[values.present],col="blue
 
 
 #### Collect all CWM regressions ####
-names(splot.bioclim) # from 4 (BIO_01 to 49 T_MAR
+names(splot.bioclim) # from 4 (BIO_01 to 49 T_DEC
 CWM.bioclim <- array(NA,c(46,18,5),dimnames=list(names(splot.bioclim)[4:49],dimnames(CWM)[[2]],
                       c("p_lin","r2_lin","p_qua1", "p_qua2","r2_qua")))
 for (i in 1:46){
@@ -655,20 +665,20 @@ for (i in 1:46){
   }
 }
 str(CWM.bioclim) #num [1:46, 1:18, 1:5]
-write.csv(data.frame(names(splot.bioclim)[4:49],CWM.bioclim[,,2]),file = "CWM_bioclim_r2_lin.csv", row.names = FALSE)
-write.csv(data.frame(names(splot.bioclim)[4:49],CWM.bioclim[,,5]),file = "CWM_bioclim_r2_qua.csv", row.names = FALSE)
+write.csv(data.frame(names(splot.bioclim)[4:49],CWM.bioclim[,,2]),file = "CWM_bioclim_r2_lin2.csv", row.names = FALSE)
+write.csv(data.frame(names(splot.bioclim)[4:49],CWM.bioclim[,,5]),file = "CWM_bioclim_r2_qua2.csv", row.names = FALSE)
 
-
-which(CWM.bioclim[,1,2]==max(CWM.bioclim[,1,2])) # BIO_02 
-which(CWM.bioclim[,1,5]==max(CWM.bioclim[,1,5])) # BIO_02 
+# for SLA
+which(CWM.bioclim[,3,2]==max(CWM.bioclim[,3,2])) # BIO_02 
+which(CWM.bioclim[,3,5]==max(CWM.bioclim[,3,5])) # BIO_02 
 which(CWM.bioclim[,,2]==max(CWM.bioclim[,,2]),arr.ind = TRUE) 
 #       row col
-#BIO_02   2   9
-CWM.bioclim[2,9,2] #0.1297723
+#BIO_02   2   3
+CWM.bioclim[2,3,2] #0.1113908
 which(CWM.bioclim[,,5]==max(CWM.bioclim[,,5]),arr.ind = TRUE) 
-#       row col
-#BIO_02   2   9
-CWM.bioclim[2,9,5] # 0.1563736
+#    row col
+#PET  22   2
+CWM.bioclim[22,2,5] # 0.1407318
 names(splot.bioclim)[2+3] #"BIO_02"
 dimnames(CWM)[[2]][9] #"LeafNperArea.mean"
 plot(CWM[,"LeafNperArea.mean"]~splot.bioclim$BIO_02[index11],
@@ -693,13 +703,33 @@ dev.off() # creates a file
 library(vegan)
 pca1 <- rda(CWM,scale=T)
 plot(pca1)
+head(summary(pca1),100)
+'Partitioning of correlations:
+              Inertia Proportion
+Total              18          1
+Unconstrained      18          1
+
+Eigenvalues, and their contribution to the correlations 
+
+Importance of components:
+                         PC1    PC2    PC3     PC4     PC5     PC6     PC7     PC8     PC9    PC10    PC11    PC12    PC13
+Eigenvalue            5.3194 3.5487 2.0227 1.37785 1.27883 1.00296 0.71963 0.66827 0.56198 0.49244 0.34211 0.26158 0.19518
+Proportion Explained  0.2955 0.1971 0.1124 0.07655 0.07105 0.05572 0.03998 0.03713 0.03122 0.02736 0.01901 0.01453 0.01084
+Cumulative Proportion 0.2955 0.4927 0.6050 0.68159 0.75264 0.80836 0.84834 0.88546 0.91668 0.94404 0.96305 0.97758 0.98842
+                         PC14    PC15    PC16    PC17     PC18
+Eigenvalue            0.07591 0.05484 0.05067 0.01766 0.009314
+Proportion Explained  0.00422 0.00305 0.00281 0.00098 0.000520
+Cumulative Proportion 0.99264 0.99569 0.99850 0.99948 1.000000'
 str(summary(pca1))
 #text(summary(pca1)$species[,c(1,2)],dimnames(summary(pca1)$species)[[1]])
 traitnames <- dimnames(summary(pca1)$species)[[1]]
 traitnames <- substr(traitnames,1,nchar(traitnames)-5)
 traitcoord <- summary(pca1)$species[,c(1,2)]
-which(traitnames=="SeedMass") #3
-traitcoord[3,2] <- traitcoord[3,2]-0.5
+plotcoord <- summary(pca1)$sites[,c(1,2)]
+which(traitnames=="Seed.length") #9
+traitcoord[9,2] <- traitcoord[9,2]+0.3
+which(traitnames=="LDMC") #10
+traitcoord[10,2] <- traitcoord[10,2]-0.3
 ordiplot(pca1, type="n", ylim=c(-10,10))
 text(traitcoord,traitnames, col="red", cex=1)
 points(plotcoord*30, cex=0.05)
@@ -733,7 +763,6 @@ gc()
 ### produce a PCA with kernel density
 # From Díaz et al. 2016, Nature
 library(ks)
-plotcoord <- summary(pca1)$sites[,c(1,2)]
 str(plotcoord) #num [1:1111307, 1:2]
 H <- Hpi(x=plotcoord)      # optimal bandwidth estimation
 # does not work
@@ -743,29 +772,29 @@ library(raster)
 library(fBasics)
 # Color palette
 #plotcoord <- plotcoord*30
-min(plotcoord[,1]) #-0.2639705
-max(plotcoord[,1]) # 0.2415964
-min(plotcoord[,2]) #-0.2595053
-max(plotcoord[,2]) # 0.3560549
+min(plotcoord[,1]) #-0.3202043
+max(plotcoord[,1]) # 0.3078603
+min(plotcoord[,2]) #-0.5899272
+max(plotcoord[,2]) # 0.2530614
 x.cut <- cut(plotcoord[,1], breaks=seq(min(plotcoord[,1]), max(plotcoord[,1]), by=0.01))
 y.cut <- cut(plotcoord[,2], breaks=seq(min(plotcoord[,2]), max(plotcoord[,2]), by=0.01))
 z.cut <- table(x.cut,y.cut)
 head(z.cut)
-dim(z.cut) #50 61
+dim(z.cut) #62 84
 z.cut <- melt(z.cut)
-str(z.cut) # 3050 obs. of  3 variables:
+str(z.cut) # 5208 obs. of  3 variables:
 head(z.cut)
 z.cut$xy <- paste(z.cut$x.cut,z.cut$y.cut,sep="_")
 str(x.cut)
-length(x.cut) # 1111307
+length(x.cut) # 1112287
 xy <- paste(x.cut,y.cut,sep="_")
 index30 <- match(xy,z.cut$xy)
 length(index30)
-any(is.na(index30))
+any(is.na(index30)) # T
 head(log10(z.cut$value[index30]))
 values.present <- vector(mode="numeric", length=length(xy))
 min(log10(z.cut$value[index30]), na.rm=T) #0
-max(log10(z.cut$value[index30]), na.rm=T) # 3.9878
+max(log10(z.cut$value[index30]), na.rm=T) # 3.992156
 values.cut <- cut(log10(z.cut$value[index30]), breaks=seq(min(log10(z.cut$value[index30]), na.rm=T),
                         4, by=0.4))
 #values.present <- z.cut$value[index30]
@@ -803,21 +832,29 @@ text(traitcoord,traitnames, col="red", cex=1)
 
 rda1 <- rda(CWM~.,splot.bioclim[index11,c(4:49)],scale=T)
 plot(rda1)
-summary(rda1)
+head(summary(rda1), 100)
 rda1
-'              Inertia Proportion Rank
-Total         18.0000     1.0000     
-Constrained    2.4811     0.1378   15
-Unconstrained 15.5189     0.8622   15
-Inertia is correlations 
-Eigenvalues for constrained axes:
-  RDA1   RDA2   RDA3   RDA4   RDA5   RDA6   RDA7   RDA8   RDA9  RDA10  RDA11  RDA12  RDA13  RDA14  RDA15 
-1.2230 0.6020 0.3275 0.1972 0.0653 0.0226 0.0156 0.0107 0.0059 0.0050 0.0031 0.0012 0.0010 0.0007 0.0003 
+'Partitioning of correlations:
+              Inertia Proportion
+Total          18.000     1.0000
+Constrained     2.321     0.1289
+Unconstrained  15.679     0.8711
 
-Eigenvalues for unconstrained axes:
-PC1   PC2   PC3   PC4   PC5   PC6   PC7   PC8   PC9  PC10  PC11  PC12  PC13  PC14  PC15 
-4.594 3.453 1.486 1.426 1.095 0.798 0.648 0.603 0.483 0.343 0.261 0.122 0.084 0.074 0.047 
-'
+Eigenvalues, and their contribution to the correlations 
+
+Importance of components:
+RDA1    RDA2    RDA3    RDA4    RDA5    RDA6    RDA7    RDA8    RDA9    RDA10    RDA11    RDA12
+Eigenvalue            1.20610 0.57369 0.23626 0.15021 0.06339 0.02077 0.02014 0.01570 0.01164 0.008565 0.007286 0.002948
+Proportion Explained  0.06701 0.03187 0.01313 0.00835 0.00352 0.00115 0.00112 0.00087 0.00065 0.000480 0.000400 0.000160
+Cumulative Proportion 0.06701 0.09888 0.11200 0.12035 0.12387 0.12502 0.12614 0.12701 0.12766 0.128140 0.128540 0.128710
+RDA13   RDA14     RDA15     RDA16     RDA17     RDA18    PC1    PC2    PC3    PC4     PC5     PC6
+Eigenvalue            0.002155 0.00111 0.0002949 0.0001558 0.0000665 3.596e-05 4.2977 3.0445 1.8700 1.1826 1.10560 0.94049
+Proportion Explained  0.000120 0.00006 0.0000200 0.0000100 0.0000000 0.000e+00 0.2388 0.1691 0.1039 0.0657 0.06142 0.05225
+Cumulative Proportion 0.128830 0.12889 0.1289000 0.1289100 0.1289200 1.289e-01 0.3677 0.5368 0.6407 0.7064 0.76783 0.82008
+PC7     PC8     PC9    PC10    PC11    PC12   PC13    PC14    PC15    PC16    PC17     PC18
+Eigenvalue            0.70216 0.61116 0.50930 0.46537 0.32289 0.24648 0.1782 0.07293 0.05366 0.04986 0.01738 0.009213
+Proportion Explained  0.03901 0.03395 0.02829 0.02585 0.01794 0.01369 0.0099 0.00405 0.00298 0.00277 0.00097 0.000510
+Cumulative Proportion 0.85909 0.89304 0.92134 0.94719 0.96513 0.97882 0.9887 0.99277 0.99575 0.99852 0.99949 1.000000'
 #anova(rda1, perm=99)
 #anova(rda1, by="terms", permutations = how(nperm=9))
 library(parallel) 
@@ -859,7 +896,8 @@ text(traitcoord,traitnames, col="red")
 rda2 <- rda(CWM ~ 1,splot.bioclim[index11,c(4:49)],scale=T)
 #rda3 <- step(rda2, scope = formula(rda1), test = "perm")
 rda3 <- ordiR2step(rda2, scope=formula(rda1), direction = "both", Pin = 0.05, R2scope = F, permutations = how(nperm = 99), trace = TRUE)
-#CWM ~ GDD5 + BIO_02 + BIO_12 + T_MAY + P_MAY + T_AUG ....
+#TRY2.0: CWM ~ GDD5 + BIO_02 + BIO_12 + T_MAY + P_MAY + T_AUG ....
+#TRY3.0: CWM ~ GDD5 + BIO_02 + BIO_12 + T_MAY + P_MAY + T_SEP + P_DEC +      P_FEB 
 #rm(rda1)
 
 # now rebuild the RDA sequentially
@@ -884,32 +922,32 @@ traitnames <- dimnames(summary(rda4)$species)[[1]]
 traitnames <- substr(traitnames,1,nchar(traitnames)-5)
 traitcoord <- summary(rda4)$species[,c(1,2)]
 plotcoord <- summary(rda4)$sites[,c(1,2)]
-str(plotcoord) #num [1:1111307, 1:2]
+str(plotcoord) #num [1:1112287, 1:2]
 bioclimcoord <- summary(rda4)$biplot[,c(1,2)]
 
-min(plotcoord[,1]) #-0.5340595
-max(plotcoord[,1]) # 0.7760822
-min(plotcoord[,2]) #-0.2688765
-max(plotcoord[,2]) # 0.2326464
+min(plotcoord[,1]) #-0.683271
+max(plotcoord[,1]) # 0.8519885
+min(plotcoord[,2]) #-0.3398233
+max(plotcoord[,2]) # 0.3047364
 x.cut <- cut(plotcoord[,1], breaks=seq(min(plotcoord[,1]), max(plotcoord[,1]), by=0.01))
 y.cut <- cut(plotcoord[,2], breaks=seq(min(plotcoord[,2]), max(plotcoord[,2]), by=0.01))
 z.cut <- table(x.cut,y.cut)
 head(z.cut)
-dim(z.cut) #131 50
+dim(z.cut) #153  64
 z.cut <- melt(z.cut)
 str(z.cut) # 6550 obs. of  3 variables:
 head(z.cut)
 z.cut$xy <- paste(z.cut$x.cut,z.cut$y.cut,sep="_")
 str(x.cut)
-length(x.cut) # 1111307
+length(x.cut) # 1112287
 xy <- paste(x.cut,y.cut,sep="_")
 index30 <- match(xy,z.cut$xy)
 length(index30)
-any(is.na(index30))
+any(is.na(index30)) #T
 head(log10(z.cut$value[index30]))
 values.present <- vector(mode="numeric", length=length(xy))
 min(log10(z.cut$value[index30]), na.rm=T) #0
-max(log10(z.cut$value[index30]), na.rm=T) # 3.956168
+max(log10(z.cut$value[index30]), na.rm=T) # 3.947336
 values.cut <- cut(log10(z.cut$value[index30]), breaks=seq(min(log10(z.cut$value[index30]), na.rm=T),
                                                          4, by=0.4))
      
@@ -930,12 +968,12 @@ traitnames <- substr(traitnames,1,nchar(traitnames)-5)
 traitcoord <- summary(rda5)$species[,c(1,2)]
 bioclimcoord <- summary(rda5)$biplot[,c(1,2)]
 plotcoord <- summary(rda5)$sites[,c(1,2)]
-str(plotcoord) #num [1:1111307, 1:2]
+str(plotcoord) #num [1:1112287, 1:2]
 x.cut <- cut(plotcoord[,1], breaks=seq(min(plotcoord[,1]), max(plotcoord[,1]), by=0.01))
 y.cut <- cut(plotcoord[,2], breaks=seq(min(plotcoord[,2]), max(plotcoord[,2]), by=0.01))
 z.cut <- table(x.cut,y.cut)
 head(z.cut)
-dim(z.cut) #131 50
+dim(z.cut) #141 205
 z.cut <- melt(z.cut)
 str(z.cut) # 6550 obs. of  3 variables:
 head(z.cut)
@@ -949,14 +987,14 @@ any(is.na(index30))
 head(log10(z.cut$value[index30]))
 values.present <- vector(mode="numeric", length=length(xy))
 min(log10(z.cut$value[index30]), na.rm=T) #0
-max(log10(z.cut$value[index30]), na.rm=T) # 3.399154
+max(log10(z.cut$value[index30]), na.rm=T) # 3.228913
 values.cut <- cut(log10(z.cut$value[index30]), breaks=seq(min(log10(z.cut$value[index30]), na.rm=T),
                                                           4, by=0.4))
 
 
 
 ordiplot(rda5, type="n", xlim=c(-10,10), ylim=c(-10,10))
-points(plotcoord*30, cex=0.05, col=rev(greyPalette(n=10,  start = 0, end = 0.8, 
+points(plotcoord*15, cex=0.05, col=rev(greyPalette(n=10,  start = 0, end = 0.8, 
                                                    gamma = 2.2, alpha = NULL))[values.cut])
 arrows(rep(0,2),rep(0,2),bioclimcoord[,1]*8,bioclimcoord[,2]*8, col="blue", length=0.1)
 text(bioclimcoord*8,dimnames(bioclimcoord)[[1]], col="blue", cex=1)
@@ -969,9 +1007,14 @@ plot(CWM[,"LeafNPratio.mean"]~splot.bioclim$GDD5[index11],
 model1 <- lm(CWM[,"LeafNPratio.mean"]~splot.bioclim$GDD5[index11])
 summary(model1)
 '                             Estimate Std. Error t value Pr(>|t|)    
-(Intercept)                 2.297e+00  3.891e-04  5905.2   <2e-16 ***
-splot.bioclim$GDD5[index11] 6.349e-06  1.636e-08   388.1   <2e-16 ***
-Multiple R-squared:  0.1193,	Adjusted R-squared:  0.1193 
+(Intercept)                 2.334e+00  3.795e-04  6149.5   <2e-16 ***
+splot.bioclim$GDD5[index11] 5.757e-06  1.595e-08   360.9   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.196 on 1112285 degrees of freedom
+Multiple R-squared:  0.1048,	Adjusted R-squared:  0.1048 
+F-statistic: 1.303e+05 on 1 and 1112285 DF,  p-value: < 2.2e-16
 '
 abline(model1, lwd=3, col="blue")
 # LeafNPRatio_GDD5
