@@ -109,6 +109,7 @@ str(backbone.splot.try3)
 
 ###### Harmonized plot data ######
 DT <- read.csv("data/plots_without_unified_cover_scales_20160120a.csv")
+DT <- read.csv("data/plots_without_unified_cover_scales_20160120a.csv")
 library(data.table)
 DT <- data.table(DT)
 colnames(DT)
@@ -1182,7 +1183,8 @@ for (i in 1:18){
 }
 write.csv(FD,file = "FD3.csv", row.names = T)
 
-FD <- read.csv("C://Daten//iDiv2//splot2//FD3.csv")
+#FD <- read.csv("C://Daten//iDiv2//splot2//FD3.csv")
+FD <- read.csv("C://Daten//iDiv2//splot2//splot2.0//FD_TRY3.csv")
 str(FD)
 dimnames(FD)[[1]] <- FD$X
 FD <- FD[,-1]
@@ -1195,12 +1197,12 @@ any(is.na(index12)) # F
 splot.header3 <- splot.header[index12,]
 str(FD) # num [1:1117898, 1:18]
 FD <- FD[!(is.na(splot.header3$Longitude)|is.na(splot.header3$Latitude)|is.na(FD[,"SLA.mean"])),]
-str(FD) # num [1:1111307 , 1:18]
-1111307 /1117898*100 # 99.41041 % of plots have traits, Long and Lat
+str(FD) # num [1:1112287 , 1:18]
+1112287 /1117898*100 # 99.49808 % of plots have traits, Long and Lat
 any(is.na(FD)) #F
 # match header again
 index13 <- match(dimnames(FD)[[1]],splot.header$PlotObservationID)
-length(index13) #1111307
+length(index13) #1112287
 any(is.na(index13)) # F
 splot.header3 <- splot.header[index13,]
 # now in the same sequence as FD
@@ -1232,13 +1234,14 @@ write.csv(data.frame(names(splot.bioclim)[4:49],FD.bioclim[,,5]),file = "FD2_bio
 library(vegan)
 FD.pca1 <- rda(FD,scale=T)
 FD.pca1
-'Eigenvalues for unconstrained axes:
-PC1   PC2   PC3   PC4   PC5   PC6   PC7   PC8 
-8.597 1.876 1.378 0.886 0.790 0.780 0.583 0.551 
+'
+Eigenvalues for unconstrained axes:
+  PC1   PC2   PC3   PC4   PC5   PC6   PC7   PC8 
+8.703 1.758 1.122 0.974 0.732 0.643 0.590 0.540 
 (Showed only 8 of all 18 unconstrained eigenvalues)
 '
 plot(FD.pca1)
-summary(FD.pca1)
+head(summary(FD.pca1))
 #text(summary(FD.pca1)$species[,c(1,2)],dimnames(summary(FD.pca1)$species)[[1]])
 traitnames <- dimnames(summary(FD.pca1)$species)[[1]]
 traitnames <- substr(traitnames,1,nchar(traitnames)-5)
