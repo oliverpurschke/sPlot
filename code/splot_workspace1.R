@@ -31,7 +31,7 @@ load("/data/sPlot2.0/DT_20161021.RData")
 library(data.table)
 splot.header <- fread("/data/sPlot2.0/sPlot_2015_07_29_header.csv", 
                       sep = "\t", na.strings=c("","NA"))
-
+str(DT)
 ###### Backbone #####
 load("/data/sPlot2.0/backbone.splot2.1.try3.Rdata")
 str(backbone.splot2.1.try3) 
